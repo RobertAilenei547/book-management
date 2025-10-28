@@ -16,27 +16,27 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    environment:
-      # Recommended explicit Spring properties so the app connects to the DB service
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/books_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      # legacy/fallback env names your app may expect
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_NAME: books_db
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-    depends_on:
-      - db
-    ports:
-      - "8080:8080"
+#
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    environment:
+#      # Recommended explicit Spring properties so the app connects to the DB service
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/books_db
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
+#      # legacy/fallback env names your app may expect
+#      DB_HOST: db
+#      DB_PORT: 5432
+#      DB_NAME: books_db
+#      DB_USER: postgres
+#      DB_PASSWORD: postgres
+#    depends_on:
+#      - db
+#    ports:
+#      - "8080:8080"
 
 volumes:
   book-db-data:
