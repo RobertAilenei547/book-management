@@ -1,9 +1,11 @@
 package com.book.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -14,8 +16,8 @@ import java.time.LocalDate;
 @Builder
 public class BookEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private BigDecimal id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "price")
