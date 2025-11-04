@@ -3,12 +3,15 @@ package com.book.controller;
 import com.baeldung.openapi.api.BooksApi;
 import com.baeldung.openapi.model.Book;
 import com.baeldung.openapi.model.BookRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.book.service.BookService;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,9 +23,8 @@ public class BookController implements BooksApi {
     private final BookService bookService;
 
     @Override
-    public ResponseEntity<List<Book>> getBooksPage() {
-        // delegate to service with default pagination (or you can read RequestParam via BooksApi default signature)
-        List<Book> books = bookService.getAllBooks(0, 5);
+    public ResponseEntity<List<Book>> getBooksPage(@Valid Integer page, @Valid Integer size) {
+        List<Book> books = bookService.getAllBooks(page, size);
         return ResponseEntity.ok(books);
     }
 

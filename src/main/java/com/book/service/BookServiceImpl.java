@@ -38,11 +38,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(BookRequest bookRequest) {
-//        BookEntity entity = new BookEntity();
-//        entity.setName(bookRequest.getName());
-//        entity.setPrice(bookRequest.getPrice());
-//        entity.setReleaseDate(bookRequest.getReleaseDate());
-//        entity.setGenre(bookRequest.getGenre());
         BookEntity entity = bookMapper.toBookEntity(bookRequest);
         BookEntity saved = bookRepository.save(entity);
         return bookMapper.toBook(saved);

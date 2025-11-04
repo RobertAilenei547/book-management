@@ -22,18 +22,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults()); // enables Basic Auth
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("password123")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }
 }
