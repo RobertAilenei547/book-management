@@ -2,6 +2,7 @@ package com.book.service;
 
 import com.baeldung.openapi.model.BookRequest;
 import com.baeldung.openapi.model.Book;
+import com.baeldung.openapi.model.PageContent;
 import lombok.RequiredArgsConstructor;
 import com.book.model.BookEntity;
 import com.book.model.BookMapper;
@@ -30,6 +31,22 @@ public class BookServiceImpl implements BookService {
                 .map(bookMapper::toBook)
                 .toList();
     }
+
+    @Override
+    public PageContent createResponsePage(int pageNumber, int pageSize) {
+        List<Book> books = getAllBooks(pageNumber, pageSize);
+        long totalItems = bookRepository.count();
+        int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+
+        PageContent response = new PageContent();
+        response.setTotalItems((int) totalItems);
+        response.setTotalNumberOfPages(totalPages);
+        response.setPage(pageNumber);
+        response.setSize(pageSize);
+        response.setContent(books);
+        return response;
+    }
+
 
     @Override
     public Optional<Book> getBookById(BigDecimal id) {

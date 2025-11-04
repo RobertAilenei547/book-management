@@ -3,6 +3,7 @@ package com.book.controller;
 import com.baeldung.openapi.api.BooksApi;
 import com.baeldung.openapi.model.Book;
 import com.baeldung.openapi.model.BookRequest;
+import com.baeldung.openapi.model.PageContent;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -23,9 +24,10 @@ public class BookController implements BooksApi {
     private final BookService bookService;
 
     @Override
-    public ResponseEntity<List<Book>> getBooksPage(@Valid Integer page, @Valid Integer size) {
-        List<Book> books = bookService.getAllBooks(page, size);
-        return ResponseEntity.ok(books);
+    public ResponseEntity<PageContent> getBooksPage(@Valid Integer page, @Valid Integer size) {
+        PageContent response = bookService.createResponsePage(page,size);
+        return ResponseEntity.ok(response);
+
     }
 
     @Override
