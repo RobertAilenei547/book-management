@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: Book Management API
+  version: 1.0.0
+paths:
+  /books:
+    get:
+      operationId: getBooksPage
+      summary: List all books
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+      responses:
+        '200':
+          description: A paginated list of books
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageContent'
+
+    post:
+      operationId: addBook
+      summary: Add a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+      responses:
+        '200':
+          description: Book created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    put:
+      operationId: updateBook
+      summary: Add a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: Book updated
+    delete:
+      operationId: deleteBook
+      summary: Delete Book by ID
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: number
+      responses:
+        '204':
+          description: All books deleted
+  /books/{id}:
+    get:
+      operationId: getBookById
+      summary: Get a book by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Book details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          maxLength: 50
+        price:
+          type: double
+        releaseDate:
+          type: string
+          format: date
+        genre:
+          type: string
+          maxLength: 30
+    BookRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        price:
+          type: double
+        releaseDate:
+          type: string
+          format: date
+        genre:
+          type: string
+          maxLength: 30
+    PageContent:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+          example: 1124
+        totalNumberOfPages:
+          type: integer
+          example: 35
+        page:
+          type: integer
+          example: 10
+        size:
+          type: integer
+          example: 34
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'

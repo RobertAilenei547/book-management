@@ -1,0 +1,9 @@
+com\baeldung\openapi\api\ApiUtil.class
+com\baeldung\openapi\api\BooksApiController.class
+com\baeldung\openapi\api\BooksApiController$1.class
+com\baeldung\openapi\api\BooksApiDelegate.class
+com\baeldung\openapi\model\BookRequest.class
+com\baeldung\openapi\model\PageContent.class
+com\baeldung\openapi\api\BooksApi$1.class
+com\baeldung\openapi\api\BooksApi.class
+com\baeldung\openapi\model\Book.class
