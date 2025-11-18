@@ -2,7 +2,6 @@ package com.book.dao;
 
 import book.management.model.Book;
 import book.management.model.BookRequest;
-import lombok.AllArgsConstructor;
 import com.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 
