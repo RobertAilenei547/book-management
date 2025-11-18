@@ -1,21 +1,19 @@
 package com.book.controller;
 
-import com.baeldung.openapi.api.BooksApi;
-import com.baeldung.openapi.model.Book;
-import com.baeldung.openapi.model.BookRequest;
-import com.baeldung.openapi.model.PageContent;
-import jakarta.servlet.http.HttpServletRequest;
+import book.management.openapi.BooksApi;
+import book.management.model.Book;
+import book.management.model.BookRequest;
+import book.management.model.PageContent;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.book.service.BookService;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+
 
 import java.math.BigDecimal;
-import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class BookController implements BooksApi {
 
     @Override
     public ResponseEntity<PageContent> getBooksPage(@Valid Integer page, @Valid Integer size) {
-        PageContent response = bookService.createResponsePage(page,size);
+        PageContent response = bookService.getAllBooks(page,size);
         return ResponseEntity.ok(response);
 
     }

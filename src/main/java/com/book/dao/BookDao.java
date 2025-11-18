@@ -1,8 +1,7 @@
 package com.book.dao;
 
-import com.baeldung.openapi.model.Book;
-import com.baeldung.openapi.model.BookRequest;
-
+import book.management.model.Book;
+import book.management.model.BookRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;

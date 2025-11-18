@@ -1,16 +1,13 @@
 package com.book.service;
 
-import com.baeldung.openapi.model.Book;
-import com.baeldung.openapi.model.BookRequest;
-import com.baeldung.openapi.model.PageContent;
-
+import book.management.model.Book;
+import book.management.model.BookRequest;
+import book.management.model.PageContent;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 public interface BookService {
-    List<Book> getAllBooks(int pageNumber, int pageSize);
-    PageContent createResponsePage(int pageNumber, int pageSize);
+    PageContent getAllBooks(int pageNumber, int pageSize);
     Optional<Book> getBookById(BigDecimal id);
     Book createBook(BookRequest book);
     Book updateBook(Book book);

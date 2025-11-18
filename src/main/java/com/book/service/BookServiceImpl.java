@@ -1,52 +1,46 @@
 package com.book.service;
 
-import com.baeldung.openapi.model.BookRequest;
-import com.baeldung.openapi.model.Book;
-import com.baeldung.openapi.model.PageContent;
-import lombok.RequiredArgsConstructor;
+import book.management.model.BookRequest;
+import book.management.model.Book;
+import book.management.model.PageContent;
 import com.book.model.BookEntity;
+import lombok.AllArgsConstructor;
 import com.book.model.BookMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.book.repository.BookRepository;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-
+@AllArgsConstructor
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
+
     @Override
-    public List<Book> getAllBooks(int pageNumber, int pageSize) {
+    public PageContent getAllBooks(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return bookRepository.findAll(pageable)
-                .stream()
+        var page = bookRepository.findAll(pageable);
+        List<Book> books = page.stream()
                 .map(bookMapper::toBook)
                 .toList();
+        long totalItems = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+        PageContent pageContent = bookMapper.toPageContent(
+                pageSize,
+                pageNumber,
+                totalPages,
+                totalItems,
+                books
+        );
+        pageContent.setTotalNumberOfPages(page.getTotalPages());
+        return pageContent;
     }
-
-    @Override
-    public PageContent createResponsePage(int pageNumber, int pageSize) {
-        List<Book> books = getAllBooks(pageNumber, pageSize);
-        long totalItems = bookRepository.count();
-        int totalPages = (int) Math.ceil((double) totalItems / pageSize);
-
-        PageContent response = new PageContent();
-        response.setTotalItems((int) totalItems);
-        response.setTotalNumberOfPages(totalPages);
-        response.setPage(pageNumber);
-        response.setSize(pageSize);
-        response.setContent(books);
-        return response;
-    }
-
 
     @Override
     public Optional<Book> getBookById(BigDecimal id) {

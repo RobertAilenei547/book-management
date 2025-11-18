@@ -8,9 +8,4 @@ import java.math.BigDecimal;
 
 @Repository
 public interface BookRepository extends JpaRepository<BookEntity, BigDecimal> {
-//    Page<BookEntity> findAll(Pageable pageable);
-//
-//    Optional<Book> findById(BigDecimal id);
-//
-//    void deleteById(BigDecimal id);
 }

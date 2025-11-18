@@ -1,8 +1,8 @@
 package com.book.dao;
 
-import com.baeldung.openapi.model.Book;
-import com.baeldung.openapi.model.BookRequest;
-import org.springframework.stereotype.Repository;
+import book.management.model.Book;
+import book.management.model.BookRequest;
+import lombok.AllArgsConstructor;
 import com.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -10,11 +10,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 @RequiredArgsConstructor
 public class BookDaoImpl implements BookDao {
 
     private final BookRepository bookRepository;
+
 
     @Override
     public List<Book> findAll(int pageNumber, int pageSize) {
@@ -42,3 +42,4 @@ public class BookDaoImpl implements BookDao {
 //        bookRepository.deleteById(id);
     }
 }
+
